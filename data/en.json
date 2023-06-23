@@ -1,0 +1,9 @@
+[{
+    "cargo": "cargo",
+    "passenger": "passenger",
+    "comment":"what is this?",
+    "map":"map",
+    "vehiclename":"Vehicle name",
+    "Driver":"Driver's name",
+    "vehiclecategory":"Vehicle category"
+  }]

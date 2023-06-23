@@ -1,0 +1,38 @@
+
+   [{
+      "cargo": 25,
+      "passenger": 25,
+      "type": "order",
+      "category": "Категория1",
+      "name": "Название1",
+      "driver": "Имя водителя1",
+      "gmail":"kveer7469@gmail.com",
+      "phone":"202-555-0181",
+      "latitude": 51.5074,
+      "longitude": -0.1278
+    },
+    {
+      "cargo": 45,
+      "passenger": 45,
+      "type": "order",
+      "category": "Категория2",
+      "name": "Название2",
+      "driver": "Имя водителя2",
+      "gmail":"kveer7469@gmail.com",
+      "phone":"202-555-0181",
+      "latitude": 52.3667,
+      "longitude": 4.8945
+    },
+    {
+      "cargo": 55,
+      "passenger": 55,
+      "type": "Special transport",
+      "category": "Категория3",
+      "name": "Название3",
+      "driver": "Имя водителя3",
+      "gmail":"kveer7469@gmail.com",
+      "phone":"202-555-0181",
+      "latitude": 48.8566,
+      "longitude": 2.3522
+    }]
+

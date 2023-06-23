@@ -1,0 +1,153 @@
+import React, { useState, useEffect } from 'react';
+import { View, Text, TextInput, StyleSheet, TouchableOpacity } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+import { Checkbox } from 'react-native-paper';
+import { useTranslation } from 'react-i18next';
+
+
+type Vehicle = {
+    cargo: number;
+    passenger: number;
+    type: string;
+    name: string;
+    driver: string;
+    category: string;
+};
+
+const List: React.FC = () => {
+    const [vehicles, setVehicles] = useState<Vehicle[]>([]);
+    const [text1, setText1] = useState('');
+    const [text2, setText2] = useState('');
+    const navigation = useNavigation();
+    const [checked, setChecked] = React.useState(false);
+    const { t, i18n } = useTranslation();
+    const [update, setUpdate] = useState(false);
+    useEffect(() => {
+        const jsonData = require('../data/data.json');
+    
+            setVehicles(jsonData.transportation);
+     
+    }, []);
+
+    const handlePress = (vehicle: Vehicle) => {
+        const { name, driver, gmail, phone, latitude, longitude } = vehicle;
+        const vehicleJson = JSON.stringify({ name, driver, gmail, phone, latitude, longitude });
+        navigation.navigate('Detail', { vehicleJson });
+    };
+    // console.log(vehicles);
+
+            // const filteredData = vehicles.filter((vehicle) => {
+            //     parseInt(vehicle.cargo) == param2
+            //     if(vehicle.cargo==param2){
+            //         console.log(vehicle.cargo);
+            //         console.log('param2 : ' + param2);
+            //         console.log(vehicle);
+            //     }    
+            // });
+    // console.log(filteredData);
+    const HandleChange = (param1:number, param2:number) => {
+        //     param2=Number(param2);
+        // console.log(typeof param2);
+        let newParam2 = parseInt(param2 + "0"); 
+        // console.log(typeof newParam2);
+        if (param1 == 1) {
+           const filteredData=vehicles.filter((vehicle)=>Number(vehicle.cargo)===newParam2);
+           console.log(typeof filteredData);
+        //    console.log('param2 : ' + param2);
+        //     console.log(filteredData);
+            setVehicles(filteredData);
+        }
+        if(param1==2){
+            const filteredData=vehicles.filter((vehicle)=>Number(vehicle.passenger)==newParam2);
+            console.log('param2 : ' + param2);
+            console.log(filteredData);
+            setVehicles(filteredData);
+        }
+    };
+    function handleClick(lang) {
+        i18n.changeLanguage(lang);
+      }
+    return (
+        <View style={styles.container}>
+            <TextInput
+                style={{ height: 40 }}
+                placeholder="cargo"
+                onChangeText={(value) => HandleChange(1, value)}
+                defaultValue={text1}
+            />
+            <TextInput
+                style={{ height: 40 }}
+                placeholder="passenger"
+                onChangeText={(value) => HandleChange(2, value)}
+                defaultValue={text2}
+            />
+            <View>
+                <Checkbox
+                    status={checked ? 'checked' : 'unchecked'}
+                    onPress={() => {
+                        setChecked(!checked);
+                    }}
+                />
+                <Text>is it special servise?</Text>
+            </View>
+            <TouchableOpacity style={styles.button}>
+                <Text>Map</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.trbutton}>
+                <Text>en/ru</Text>
+            </TouchableOpacity>
+            {vehicles ? (vehicles.map((vehicle, index) => (
+
+                <View key={index} style={styles.vehicleContainer}>
+                    <TouchableOpacity
+                        key={index}
+                        onPress={() => handlePress(vehicle)}
+                    >
+
+                        <Text style={styles.title}>Название ТС: {vehicle.name}</Text>
+                        <Text>Имя водителя: {vehicle.driver}</Text>
+                        <Text style={styles.category}>Категория ТС: {vehicle.category}</Text>
+                    </TouchableOpacity>
+                </View>
+            ))): (
+                <Text>No vehicles to display</Text>
+              )
+        }
+        </View>
+    );
+};
+
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        padding: 20,
+        backgroundColor: '#fff',
+    },
+    vehicleContainer: {
+        marginBottom: 20,
+        borderWidth: 1,
+        borderColor: '#ccc',
+        borderRadius: 5,
+        padding: 10,
+    },
+    title: {
+        fontWeight: 'bold',
+        fontSize: 16,
+        marginBottom: 5,
+    },
+    category: {
+        fontStyle: 'italic',
+    },
+    button: {
+        position: 'absolute',
+        right: 20,
+        borderRadius: 5,
+    },
+    trbutton: {
+        position: 'absolute',
+        left: 20,
+        borderRadius: 5,
+    },
+});
+
+export default List;

@@ -1,0 +1,9 @@
+[{
+    "cargo": "грузов",
+    "passenger": "пассажирский",
+    "comment":"что это?",
+    "map":"карта",
+    "vehiclename":"Название ТС",
+    "Driver":"Имя водителя",
+    "vehiclecategory":"Категория ТС"
+  }]
